@@ -1,0 +1,2793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rituraj Sharma — Backend Engineer | Node.js • Microservices • AWS</title>
+  <meta name="description"
+    content="Rituraj Sharma — Senior Backend Engineer with 4+ years building Node.js microservices, event-driven telemetry pipelines, NestJS, and AWS cloud infrastructure.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  <style>
+    /* ═══════════════ DESIGN TOKENS ═══════════════ */
+    :root {
+      --bg: #080c24;
+      --bg-2: #0d092b;
+      --bg-card: #11183c;
+      --bg-card-2: #17204b;
+      --bg-card-hover: #1c2759;
+      --cyan: #4deeea;
+      --cyan-10: rgba(77, 238, 234, 0.10);
+      --cyan-20: rgba(77, 238, 234, 0.20);
+      --cyan-40: rgba(77, 238, 234, 0.45);
+      --green: #7cfc9c;
+      --green-15: rgba(124, 252, 156, 0.15);
+      --magenta: #ff5da8;
+      --magenta-20: rgba(255, 93, 168, 0.25);
+      --orange: #ff6a3d;
+      --orange-2: #ffb23d;
+      --yellow: #ffe66d;
+      --blue-glow: #2b7fff;
+      --text: #eef0f8;
+      --text-dim: #a2accd;
+      --text-muted: #5e6893;
+      --border: rgba(77, 238, 234, 0.25);
+      --border-m: rgba(255, 93, 168, 0.30);
+      --pixel: 'Press Start 2P', var(--mono);
+      --mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --r: 4px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 2vh 2vw;
+      background: #000000;
+      font-family: var(--inter);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .portfolio-window {
+      border: 4px solid #3b4252;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(180deg, #2a2c9d 0%, #000000 100%) fixed;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ═══════════════ AMBIENT EFFECTS ═══════════════ */
+    #bg-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(77, 238, 234, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(77, 238, 234, 0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    #scanlines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0.05) 3px);
+      opacity: 0.5;
+      mix-blend-mode: overlay;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -56px;
+      left: 20px;
+      padding: 10px 18px;
+      background: var(--orange);
+      color: #0a0e27;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      border-radius: 0 0 var(--r) var(--r);
+      z-index: 9999;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ═══════════════ PIXEL CARD UTILITIES ═══════════════ */
+    .pxcard {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+      position: relative;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pxcard:hover {
+      border-color: var(--cyan);
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    .pxcard.magenta {
+      border-color: var(--border-m);
+    }
+
+    .pxcard.magenta:hover {
+      border-color: var(--magenta);
+    }
+
+    /* ═══════════════ NAVBAR ═══════════════ */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      gap: 16px;
+      background: rgba(8, 12, 36, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .win-icon {
+      width: 18px;
+      height: 18px;
+      background: var(--cyan);
+      border-radius: 2px;
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .win-icon::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #080c24;
+      border-radius: 1px;
+    }
+
+    .nav-brand {
+      font-family: var(--pixel);
+      font-size: 0.65rem;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--cyan);
+    }
+
+    .nav-links a svg {
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover svg {
+      opacity: 1;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-socials {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .nsoc {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      transition: all 0.2s;
+      padding: 4px 8px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nsoc:hover {
+      color: var(--cyan);
+      border-color: var(--cyan-40);
+      background: var(--cyan-10);
+    }
+
+    .nsoc svg {
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    .win-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .win-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .win-dots span:nth-child(1) {
+      background: var(--green);
+    }
+
+    .win-dots span:nth-child(2) {
+      background: var(--yellow);
+    }
+
+    .win-dots span:nth-child(3) {
+      background: var(--magenta);
+    }
+
+    /* ═══════════════ MAIN / SECTIONS ═══════════════ */
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sec {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 88px 36px;
+    }
+
+    .sec-alt {
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .sec-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sec-tag::before {
+      content: '//';
+      color: var(--text-muted);
+    }
+
+    h2.sec-h {
+      font-family: var(--pixel);
+      font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 44px;
+      line-height: 1.6;
+      text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2.sec-h svg {
+      color: var(--cyan);
+    }
+
+    .divider {
+      height: 2px;
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+    }
+
+    /* ═══════════════ HERO SECTION ═══════════════ */
+    #hero {
+      position: relative;
+      min-height: calc(100vh - 4vh - 8px);
+      padding-top: 75px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 85% 12%, rgba(255, 230, 109, 0.12), transparent 45%);
+    }
+
+    #stars {
+      display: none;
+    }
+
+    #moon {
+      position: absolute;
+      top: 65px;
+      right: 8%;
+      width: 72px;
+      height: 72px;
+      z-index: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 35%, #fffce8, var(--yellow) 60%, #e8c94a 100%);
+      box-shadow: 0 0 28px 8px rgba(255, 230, 109, 0.4), 0 0 70px 20px rgba(255, 230, 109, 0.15);
+      animation: moon-glow 5s ease-in-out infinite;
+    }
+
+    #moon::after {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: -12px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #120c35;
+    }
+
+    #skyline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 135px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    #skyline svg {
+      width: 200%;
+      height: 100%;
+      animation: drift 42s linear infinite;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      max-width: 1240px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 20px 36px 120px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    /* -- Left Column -- */
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .top-cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 540px;
+    }
+
+    @media (max-width: 580px) {
+      .top-cards-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .code-win {
+      font-family: var(--mono);
+      animation: fade-up 0.7s ease 0.1s both;
+    }
+
+    .win-titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      background: var(--bg-card-2);
+      border: 2px solid var(--border);
+      border-bottom: none;
+      border-radius: var(--r) var(--r) 0 0;
+    }
+
+    .win-titlebar .win-dots span {
+      width: 7px;
+      height: 7px;
+    }
+
+    .win-titlebar span.wt {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      margin-left: 4px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .code-body {
+      border: 2px solid var(--border);
+      border-radius: 0 0 var(--r) var(--r);
+      padding: 12px 14px;
+      background: var(--bg-card);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
+      font-size: 0.74rem;
+      line-height: 1.8;
+      min-height: 84px;
+    }
+
+    .code-body .c-kw {
+      color: var(--magenta);
+      font-weight: 600;
+    }
+
+    .code-body .c-fn {
+      color: var(--cyan);
+    }
+
+    .code-body .c-str {
+      color: var(--green);
+    }
+
+    .code-body .c-com {
+      color: var(--text-muted);
+    }
+
+    #code-lines .cline {
+      opacity: 0;
+      white-space: pre;
+    }
+
+    .code-caret {
+      display: inline-block;
+      width: 6px;
+      height: 12px;
+      background: var(--cyan);
+      animation: caret-blink 0.9s step-end infinite;
+      vertical-align: -2px;
+    }
+
+    .stat-win {
+      animation: fade-up 0.7s ease 0.2s both;
+    }
+
+    .stat-body {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 12px 14px;
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      background: var(--bg-card);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .stat-body .srow2 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-body .sk2 {
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-body .sv2 {
+      color: var(--orange-2);
+      font-weight: 700;
+    }
+
+    .loadbar {
+      height: 6px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-top: 2px;
+    }
+
+    .loadbar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      width: 42%;
+      animation: load-flicker 3.2s ease-in-out infinite;
+    }
+
+    h1.h-name {
+      font-family: var(--pixel);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 4vw, 3rem);
+      line-height: 1.3;
+      color: #fce268;
+      margin: 8px 0 2px;
+      text-shadow: 3px 3px 0 #000, 6px 6px 0 #000;
+      animation: fade-up 0.7s ease 0.3s both;
+    }
+
+    h1.h-name .hi {
+      color: #fce268;
+      display: block;
+      font-size: 0.75em;
+      margin-bottom: 4px;
+    }
+
+    .h-title {
+      font-family: var(--pixel);
+      font-size: clamp(0.7rem, 1.4vw, 1rem);
+      color: #ffffff;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      font-weight: 400;
+      text-shadow: 2px 2px 0 #000;
+      animation: fade-up 0.7s ease 0.38s both;
+    }
+
+    .h-value {
+      max-width: 520px;
+      font-size: 0.92rem;
+      color: #fff;
+      line-height: 1.7;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      margin-bottom: 4px;
+      animation: fade-up 0.7s ease 0.44s both;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 10px 0 4px;
+      animation: fade-up 0.7s ease 0.5s both;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--pixel);
+      font-size: 0.75rem;
+      color: #fff;
+      padding: 16px 26px;
+      letter-spacing: 0.02em;
+      background: linear-gradient(180deg, #e53e3e, #c53030);
+      border: 3px solid #000;
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 #000;
+      text-shadow: 1px 1px 0 #000;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .btn-cta:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #000;
+    }
+
+    .btn-cta svg {
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    .contact-line {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: center;
+      animation: fade-up 0.7s ease 0.56s both;
+    }
+
+    .contact-line .c-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .contact-line .c-item svg {
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .contact-line .sep {
+      color: var(--text-muted);
+    }
+
+    .contact-line a:hover {
+      color: var(--cyan);
+      text-decoration: underline;
+    }
+
+    .skill-box {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: #fff;
+      border: 2px solid var(--cyan);
+      border-radius: var(--r);
+      background: rgba(13, 19, 48, 0.85);
+      padding: 12px 16px;
+      max-width: 460px;
+      box-shadow: 0 0 10px rgba(77, 238, 234, 0.3);
+      line-height: 1.7;
+      animation: fade-up 0.7s ease 0.62s both;
+    }
+
+    .skill-box b {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* -- Right Column: Developer Graphic Scene + Tech Stack Sidebar -- */
+    .hero-right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fade-up 0.8s ease 0.3s both;
+      width: 100%;
+    }
+
+    .graphic-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #hero-graphic-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+    }
+
+    /* Floating Tech Icon Sidebar */
+    .tech-col {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 5;
+    }
+
+    .tech-badge {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #11183c;
+      border: 3px solid rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 10px currentColor;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tech-badge:hover {
+      transform: scale(1.15) translateY(-3px) !important;
+      z-index: 10;
+      box-shadow: 0 0 20px currentColor;
+    }
+
+    .tech-badge i {
+      font-size: 28px;
+    }
+
+    .tech-badge:nth-child(1) {
+      border-color: #68a063;
+      color: #68a063;
+      animation-delay: 0s;
+    }
+
+    .tech-badge:nth-child(2) {
+      border-color: #ea2845;
+      color: #ea2845;
+      animation-delay: 0.3s;
+    }
+
+    .tech-badge:nth-child(3) {
+      border-color: #ff9900;
+      color: #ff9900;
+      animation-delay: 0.6s;
+    }
+
+    .tech-badge:nth-child(4) {
+      border-color: #2496ed;
+      color: #2496ed;
+      animation-delay: 0.9s;
+    }
+
+    .tech-badge:nth-child(5) {
+      border-color: #326ce5;
+      color: #326ce5;
+      animation-delay: 1.2s;
+    }
+
+    .tech-badge:nth-child(6) {
+      border-color: #dc382d;
+      color: #dc382d;
+      animation-delay: 1.5s;
+    }
+
+    .tech-badge:nth-child(7) {
+      border-color: #47a248;
+      color: #47a248;
+      animation-delay: 1.8s;
+    }
+
+    /* Tooltip on hover */
+    .tech-badge::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      right: 52px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .tech-badge:hover::after {
+      opacity: 1;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      animation: fade-up 0.7s ease 0.9s both;
+    }
+
+    .scroll-cue .chev {
+      animation: chev-bounce 1.6s ease-in-out infinite;
+    }
+
+    /* ═══════════════ ABOUT ═══════════════ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 0.94rem;
+      color: var(--text-dim);
+      line-height: 1.82;
+      margin-bottom: 16px;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-text strong {
+      color: var(--text);
+    }
+
+    .stat-panel {
+      overflow: hidden;
+    }
+
+    .stat-panel-hd {
+      padding: 10px 16px;
+      background: var(--cyan-10);
+      border-bottom: 2px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-panel-hd .dot3 {
+      display: flex;
+      gap: 4px;
+    }
+
+    .stat-panel-hd .dot3 span {
+      width: 6px;
+      height: 6px;
+      border-radius: 1px;
+      background: rgba(77, 238, 234, 0.4);
+    }
+
+    .srow {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(77, 238, 234, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .srow:last-child {
+      border-bottom: none;
+    }
+
+    .sk {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sv {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--orange-2);
+      font-weight: 600;
+    }
+
+    /* ═══════════════ EXPERIENCE ═══════════════ */
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cyan) 0%, rgba(77, 238, 234, 0.05) 100%);
+    }
+
+    .titem {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .titem:last-child {
+      margin-bottom: 0;
+    }
+
+    .tdot {
+      position: absolute;
+      left: -33px;
+      top: 15px;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--bg);
+      border: 2px solid var(--orange-2);
+      box-shadow: 0 0 0 3px rgba(255, 178, 61, 0.14), 0 0 10px rgba(255, 178, 61, 0.15);
+    }
+
+    .titem.current .tdot {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(77, 238, 234, 0.16), 0 0 10px rgba(77, 238, 234, 0.2);
+      animation: node-pulse-ring 2.2s ease-out infinite;
+    }
+
+    .ecard {
+      padding: 26px 28px 22px;
+      position: relative;
+      overflow: hidden;
+      border-left: 3px solid var(--orange-2);
+    }
+
+    .ecard:hover {
+      border-left-color: var(--cyan);
+      background: var(--bg-card-2);
+    }
+
+    .etop {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+
+    .eco {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--orange-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .live-badge {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      color: var(--cyan);
+      border: 1px solid var(--cyan-40);
+      background: var(--cyan-10);
+      padding: 2px 6px;
+      border-radius: 2px;
+      letter-spacing: 0.1em;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .live-badge .ldot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse-dot 1.6s ease-in-out infinite;
+    }
+
+    .eperiod {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .erole {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .esub {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      margin-bottom: 18px;
+    }
+
+    .ebullets {
+      margin-bottom: 18px;
+    }
+
+    .ebullets li {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+      padding: 5px 0 5px 18px;
+      position: relative;
+    }
+
+    .ebullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-size: 0.68rem;
+      top: 7px;
+    }
+
+    .ebullets li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .etags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--cyan);
+      border: 1px solid var(--cyan-40);
+      padding: 4px 10px;
+      border-radius: 3px;
+      background: var(--cyan-10);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chip svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+    }
+
+    .subproj {
+      border-top: 1px dashed rgba(77, 238, 234, 0.18);
+      margin-top: 16px;
+      padding-top: 14px;
+    }
+
+    .subproj-row {
+      margin-bottom: 14px;
+    }
+
+    .subproj-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .subproj-name {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      color: var(--orange-2);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .subproj-desc {
+      font-size: 0.86rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════ SKILLS ═══════════════ */
+    .sk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .sk-panel {
+      overflow: hidden;
+    }
+
+    .sk-head {
+      padding: 10px 16px;
+      background: var(--cyan-10);
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sk-ttl {
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sk-body {
+      padding: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sk-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      border: 1px solid var(--magenta-20);
+      padding: 5px 10px;
+      border-radius: 3px;
+      background: rgba(255, 93, 168, 0.06);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s, border-color 0.15s, background 0.15s, transform 0.15s;
+    }
+
+    .sk-tag:hover {
+      color: var(--magenta);
+      border-color: var(--magenta);
+      background: rgba(255, 93, 168, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .sk-tag svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor;
+    }
+
+    /* ═══════════════ EDUCATION & AWARDS ═══════════════ */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .edu-card {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .edu-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+    }
+
+    .edu-badge {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .edu-deg {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .edu-inst {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .edu-yr {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .award-card {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .award-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange-2), transparent);
+    }
+
+    .award-badge {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--orange-2);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .award-name {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .award-yr {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════ CONTACT ═══════════════ */
+    .ct-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px;
+    }
+
+    .ct-card {
+      padding: 20px;
+      display: block;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    a.ct-card {
+      cursor: pointer;
+    }
+
+    a.ct-card:hover {
+      border-color: var(--cyan-40);
+      background: var(--cyan-10);
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    .ct-lbl {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ct-val {
+      font-size: 0.85rem;
+      color: var(--cyan);
+      word-break: break-all;
+      font-family: var(--mono);
+    }
+
+    .ct-val.muted {
+      color: var(--text-dim);
+    }
+
+    /* ═══════════════ FOOTER ═══════════════ */
+    footer {
+      border-top: 2px solid var(--border);
+      padding: 30px 36px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--text-muted);
+    }
+
+    footer .fstat {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sdot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse-dot 2.6s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════ SCROLL REVEAL ═══════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    .d1 {
+      transition-delay: 0.08s;
+    }
+
+    .d2 {
+      transition-delay: 0.16s;
+    }
+
+    .d3 {
+      transition-delay: 0.24s;
+    }
+
+    /* ═══════════════ KEYFRAMES ═══════════════ */
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.45;
+      }
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0.15;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes moon-glow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 28px 8px rgba(255, 230, 109, 0.4), 0 0 70px 20px rgba(255, 230, 109, 0.15);
+      }
+
+      50% {
+        box-shadow: 0 0 36px 12px rgba(255, 230, 109, 0.55), 0 0 85px 25px rgba(255, 230, 109, 0.22);
+      }
+    }
+
+    @keyframes drift {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @keyframes caret-blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes load-flicker {
+
+      0%,
+      100% {
+        width: 42%;
+      }
+
+      45% {
+        width: 45%;
+      }
+
+      55% {
+        width: 39%;
+      }
+
+      80% {
+        width: 43%;
+      }
+    }
+
+    @keyframes badge-bob {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-7px);
+      }
+    }
+
+    @keyframes chev-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: translateY(5px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes node-pulse-ring {
+      0% {
+        box-shadow: 0 0 0 3px rgba(77, 238, 234, 0.16), 0 0 0 0 rgba(77, 238, 234, 0.35);
+      }
+
+      70% {
+        box-shadow: 0 0 0 3px rgba(77, 238, 234, 0.16), 0 0 0 9px rgba(77, 238, 234, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 3px rgba(77, 238, 234, 0.16), 0 0 0 0 rgba(77, 238, 234, 0);
+      }
+    }
+
+    /* SVG Circuit Tree Animations */
+    .glow-path {
+      filter: drop-shadow(0 0 4px var(--cyan));
+    }
+
+    .pulse-circle {
+      animation: pulse-glow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-glow {
+
+      0%,
+      100% {
+        r: 4px;
+        opacity: 0.8;
+      }
+
+      50% {
+        r: 6px;
+        opacity: 1;
+        filter: drop-shadow(0 0 8px var(--cyan));
+      }
+    }
+
+    /* ═══════════════ RESPONSIVE DESIGN ═══════════════ */
+    @media (max-width: 1100px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding-bottom: 90px;
+      }
+
+      .hero-right {
+        max-width: 580px;
+        margin: 0 auto;
+      }
+
+      .tech-col {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 18px;
+      }
+
+      .tech-badge::after {
+        top: -35px;
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    @media (max-width: 880px) {
+      #nav {
+        padding: 10px 16px;
+      }
+
+      #nav .nav-links {
+        display: none;
+      }
+
+      .sec {
+        padding: 64px 20px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .sec {
+        padding: 52px 16px;
+      }
+
+      .etop {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .edu-grid,
+      .sk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ct-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1.h-name {
+        font-size: 1.35rem;
+      }
+
+      .top-cards-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal,
+      .reveal.vis {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .code-win,
+      .stat-win,
+      h1.h-name,
+      .h-title,
+      .h-value,
+      .cta-row,
+      .contact-line,
+      .skill-box,
+      .hero-right,
+      .scroll-cue {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .star,
+      #moon,
+      #skyline svg,
+      .code-caret,
+      .loadbar-fill,
+      .tech-badge,
+      .scroll-cue .chev,
+      .sdot,
+      .ldot,
+      .titem.current .tdot {
+        animation: none !important;
+      }
+
+      #code-lines .cline {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="portfolio-window">
+    <div id="bg-grid" aria-hidden="true"></div>
+    <div id="scanlines" aria-hidden="true"></div>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- ═══════════ NAV / WINDOW CHROME ═══════════ -->
+    <nav id="nav" role="navigation" aria-label="Primary navigation">
+      <div class="nav-left">
+        <span class="win-icon" aria-hidden="true"></span>
+        <span class="nav-brand">PORTFOLIO</span>
+      </div>
+      <ul class="nav-links" role="list">
+        <li>
+          <a href="#about">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            About
+          </a>
+        </li>
+        <li>
+          <a href="#experience">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </svg>
+            Exp
+          </a>
+        </li>
+        <li>
+          <a href="#skills">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2" />
+              <polyline points="2 17 12 22 22 17" />
+              <polyline points="2 12 12 17 22 12" />
+            </svg>
+            Skills
+          </a>
+        </li>
+        <li>
+          <a href="#education">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+            Education
+          </a>
+        </li>
+        <li>
+          <a href="#contact">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            Contact
+          </a>
+        </li>
+      </ul>
+      <div class="nav-right">
+        <div class="nav-socials">
+          <!-- GitHub Icon -->
+          <a class="nsoc" href="https://github.com/raj0991" target="_blank" rel="noopener noreferrer"
+            aria-label="GitHub">
+            <svg width="14" height="14" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.51 11.51 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </svg>
+            raj0991
+          </a>
+          <!-- LinkedIn Icon -->
+          <a class="nsoc" href="https://linkedin.com/in/rituraj-sharma" target="_blank" rel="noopener noreferrer"
+            aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+            rituraj-sharma
+          </a>
+        </div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+    </nav>
+
+    <main id="main">
+
+      <!-- ═══════════ HERO ═══════════ -->
+      <section id="hero" aria-labelledby="hero-name">
+        <div id="stars" aria-hidden="true"></div>
+        <div id="moon" aria-hidden="true"></div>
+
+        <!-- Skyline SVG -->
+        <div id="skyline" aria-hidden="true">
+          <svg viewBox="0 0 1600 130" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#080c24">
+              <rect x="0" y="50" width="40" height="80" />
+              <rect x="45" y="30" width="30" height="100" />
+              <rect x="85" y="60" width="50" height="70" />
+              <rect x="145" y="15" width="26" height="115" />
+              <rect x="180" y="45" width="36" height="85" />
+              <rect x="225" y="70" width="44" height="60" />
+              <rect x="278" y="25" width="28" height="105" />
+              <rect x="315" y="55" width="40" height="75" />
+              <rect x="365" y="10" width="24" height="120" />
+              <rect x="398" y="40" width="46" height="90" />
+              <rect x="452" y="65" width="34" height="65" />
+              <rect x="495" y="20" width="30" height="110" />
+              <rect x="535" y="50" width="42" height="80" />
+              <rect x="585" y="35" width="26" height="95" />
+              <rect x="620" y="65" width="50" height="65" />
+              <rect x="680" y="18" width="28" height="112" />
+              <rect x="715" y="48" width="38" height="82" />
+              <rect x="762" y="70" width="30" height="60" />
+              <rect x="800" y="8" width="22" height="122" />
+              <rect x="830" y="42" width="44" height="88" />
+              <rect x="884" y="60" width="34" height="70" />
+              <rect x="925" y="22" width="28" height="108" />
+              <rect x="962" y="52" width="40" height="78" />
+              <rect x="1010" y="35" width="26" height="95" />
+              <rect x="1045" y="66" width="48" height="64" />
+              <rect x="1102" y="12" width="24" height="118" />
+              <rect x="1132" y="46" width="40" height="84" />
+              <rect x="1180" y="65" width="34" height="65" />
+              <rect x="1222" y="24" width="30" height="106" />
+              <rect x="1260" y="54" width="42" height="76" />
+              <rect x="1310" y="38" width="26" height="92" />
+              <rect x="1344" y="68" width="46" height="62" />
+              <rect x="1400" y="15" width="28" height="115" />
+              <rect x="1436" y="48" width="38" height="82" />
+              <rect x="1482" y="70" width="30" height="60" />
+              <rect x="1520" y="8" width="22" height="122" />
+              <rect x="1550" y="42" width="44" height="88" />
+            </g>
+            <g fill="#ffe66d" opacity="0.55">
+              <rect x="52" y="45" width="4" height="4" />
+              <rect x="93" y="75" width="4" height="4" />
+              <rect x="150" y="35" width="4" height="4" />
+              <rect x="230" y="90" width="4" height="4" />
+              <rect x="320" y="70" width="4" height="4" />
+              <rect x="405" y="55" width="4" height="4" />
+              <rect x="500" y="40" width="4" height="4" />
+              <rect x="628" y="85" width="4" height="4" />
+              <rect x="722" y="65" width="4" height="4" />
+              <rect x="838" y="60" width="4" height="4" />
+              <rect x="932" y="45" width="4" height="4" />
+              <rect x="1052" y="88" width="4" height="4" />
+              <rect x="1140" y="62" width="4" height="4" />
+              <rect x="1230" y="42" width="4" height="4" />
+              <rect x="1352" y="82" width="4" height="4" />
+              <rect x="1444" y="60" width="4" height="4" />
+            </g>
+          </svg>
+        </div>
+
+        <div class="hero-grid">
+          <!-- Left Hero Info -->
+          <div class="hero-left">
+
+            <div class="top-cards-row">
+              <!-- Code snippet window -->
+              <div class="code-win">
+                <div class="win-titlebar">
+                  <div class="win-dots"><span></span><span></span><span></span></div>
+                  <span class="wt">Node.js Microservices Code</span>
+                </div>
+                <div class="code-body" id="code-lines">
+                  <div class="cline"><span class="c-fn">app</span>.<span class="c-fn">use</span>(<span
+                      class="c-str">'/api'</span>, routeFunction);</div>
+                  <div class="cline">&nbsp;&nbsp;<span class="c-kw">return</span> data;</div>
+                  <div class="cline">} <span class="code-caret" id="the-caret"></span></div>
+                </div>
+              </div>
+
+              <!-- Uptime / Status Window -->
+              <div class="stat-win">
+                <div class="stat-body">
+                  <div class="srow2">
+                    <span class="sk2">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                      Uptime:
+                    </span>
+                    <span class="sv2" id="stat-uptime">99.9%</span>
+                  </div>
+                  <div class="srow2">
+                    <span class="sk2">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      </svg>
+                      Connections:
+                    </span>
+                    <span class="sv2" id="stat-conn">0</span>
+                  </div>
+                  <div class="srow2">
+                    <span class="sk2">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                        <line x1="6" y1="6" x2="6.01" y2="6" />
+                        <line x1="6" y1="18" x2="6.01" y2="18" />
+                      </svg>
+                      Load:
+                    </span>
+                    <span class="sv2">42%</span>
+                  </div>
+                  <div class="loadbar">
+                    <div class="loadbar-fill"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Big Pixel Headline -->
+            <h1 id="hero-name" class="h-name">
+              <span class="hi">HI! I'M</span>
+              RITURAJ SHARMA.
+            </h1>
+
+            <!-- Subheading -->
+            <p class="h-title">BACKEND ENGINEER | NODE.JS MICROSERVICES | AWS CLOUD</p>
+
+            <p class="h-value">Designing event-driven telemetry pipelines and cloud-native microservices that keep
+              production systems reliable, observable, and fast — at a scale of tens of thousands of active users.</p>
+
+            <!-- CTA Buttons -->
+            <div class="cta-row">
+              <a href="https://github.com/raj0991" target="_blank" rel="noopener noreferrer" class="btn-cta">
+                <!-- Sword / Terminal Icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
+                  <line x1="13" y1="19" x2="19" y2="13" />
+                  <line x1="16" y1="16" x2="20" y2="20" />
+                  <line x1="19" y1="21" x2="21" y2="19" />
+                </svg>
+                VIEW MY GITHUB &amp; WORK
+              </a>
+            </div>
+
+            <!-- Contact info with real SVG icons -->
+            <div class="contact-line">
+              <span class="c-item">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Bikaner, India
+              </span>
+              <span class="sep">|</span>
+              <span class="c-item">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                <a href="tel:+917976142577">7976142577</a>
+              </span>
+              <span class="sep">|</span>
+              <span class="c-item">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <a href="mailto:rituraj152150@gmail.com">rituraj152150@gmail.com</a>
+              </span>
+            </div>
+
+            <!-- Floating Summary Box -->
+            <div class="skill-box">
+              <b>Node.js/NestJS</b>, Microservices, Event-Driven,<br><b>SQL/NoSQL</b>, Docker
+            </div>
+          </div>
+
+          <!-- Right Hero Graphic: High-Quality Animated Vector Scene -->
+          <div class="hero-right">
+            <div class="hero-graphic-scene"
+              style="position: relative; width: 100%; height: 500px; display: flex; align-items: flex-end; justify-content: center;">
+              <!-- Tree Video -->
+              <video src="Untitled%20design.mp4" autoplay loop muted playsinline
+                style="position: absolute; width: 450px; bottom: 0; left: 50%; transform: translateX(-50%); mix-blend-mode: screen; filter: drop-shadow(0 0 20px rgba(77,238,234,0.3));"></video>
+
+              <!-- Developer Image -->
+              <img src="test1.png" alt="Developer"
+                style="position: absolute; height: 500px ;width: 400px; bottom: 50px; left: 60px; mix-blend-mode: screen;" />
+
+              <!-- DB Icon Node -->
+              <div class="db-icon-node"
+                style="position: absolute; top: 120px; left: 60px; background: rgba(13, 19, 48, 0.9); border: 2px solid #4deeea; padding: 6px 12px; border-radius: 8px; font-family: var(--mono); font-size: 0.8rem; color: #fff; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px rgba(77,238,234,0.4);">
+                <i class="devicon-postgresql-plain colored" style="font-size: 1.2rem;"></i> DATABASES
+              </div>
+
+              <!-- Data Stream Animations Overlaying the Tree 
+          <svg class="data-streams" viewBox="0 0 540 500" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+             <defs>
+               <filter id="glow-cyan-stream">
+                 <feGaussianBlur stdDeviation="3" result="blur" />
+                 <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+               </filter>
+             </defs>
+             
+             <path id="stream-left" d="M 270,450 C 270,300 220,250 150,140" fill="none" stroke="none" />
+             <circle r="5" fill="#4deeea" filter="url(#glow-cyan-stream)">
+               <animateMotion dur="2.5s" repeatCount="indefinite"><mpath href="#stream-left" /></animateMotion>
+             </circle>
+             <circle r="4" fill="#7cfc9c" filter="url(#glow-cyan-stream)">
+               <animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s"><mpath href="#stream-left" /></animateMotion>
+             </circle>
+
+             <path id="stream-right" d="M 270,450 C 270,300 320,250 400,160" fill="none" stroke="none" />
+             <circle r="4" fill="#ff6a3d" filter="url(#glow-cyan-stream)">
+               <animateMotion dur="2.1s" repeatCount="indefinite"><mpath href="#stream-right" /></animateMotion>
+             </circle>
+             <circle r="5" fill="#4deeea" filter="url(#glow-cyan-stream)">
+               <animateMotion dur="2.1s" repeatCount="indefinite" begin="1s"><mpath href="#stream-right" /></animateMotion>
+             </circle>
+
+             <path id="stream-center" d="M 270,450 C 270,250 270,180 270,80" fill="none" stroke="none" />
+             <circle r="6" fill="#7cfc9c" filter="url(#glow-cyan-stream)">
+               <animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#stream-center" /></animateMotion>
+             </circle>
+             <circle r="5" fill="#ffe66d" filter="url(#glow-cyan-stream)">
+               <animateMotion dur="1.8s" repeatCount="indefinite" begin="0.8s"><mpath href="#stream-center" /></animateMotion>
+             </circle>
+          </svg>
+          -->
+            </div>
+
+            <!-- Vertical Tech Stack Bar with ACTUAL SVG Icons -->
+            <div class="tech-col" role="list" aria-label="Tech stack icons">
+              <!-- Node.js Icon -->
+              <div class="tech-badge" data-tooltip="Node.js" role="listitem">
+                <i class="devicon-nodejs-plain colored" style="font-size: 24px;"></i>
+              </div>
+              <!-- NestJS Icon -->
+              <div class="tech-badge" data-tooltip="NestJS" role="listitem">
+                <i class="devicon-nestjs-plain colored" style="font-size: 24px;"></i>
+              </div>
+              <!-- AWS Icon -->
+              <div class="tech-badge" data-tooltip="AWS Cloud" role="listitem">
+                <i class="devicon-amazonwebservices-plain-wordmark colored" style="font-size: 24px;"></i>
+              </div>
+              <!-- Docker Icon -->
+              <div class="tech-badge" data-tooltip="Docker" role="listitem">
+                <i class="devicon-docker-plain colored" style="font-size: 24px;"></i>
+              </div>
+              <!-- Kubernetes Icon -->
+              <div class="tech-badge" data-tooltip="Kubernetes" role="listitem">
+                <i class="devicon-kubernetes-plain colored" style="font-size: 24px;"></i>
+              </div>
+              <!-- Redis Icon -->
+              <div class="tech-badge" data-tooltip="Redis" role="listitem">
+                <i class="devicon-redis-plain colored" style="font-size: 24px;"></i>
+              </div>
+              <!-- MongoDB Icon -->
+              <div class="tech-badge" data-tooltip="MongoDB" role="listitem">
+                <i class="devicon-mongodb-plain colored" style="font-size: 24px;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll Indicator Cue -->
+        <div class="scroll-cue" aria-hidden="true">
+          <span>SCROLL</span>
+          <svg class="chev" width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 1l6 6 6-6" />
+          </svg>
+        </div>
+      </section><!-- /hero -->
+
+      <div class="divider"></div>
+
+      <!-- ═══════════ ABOUT ═══════════ -->
+      <section id="about" class="sec" aria-labelledby="about-h">
+        <div class="sec-tag">Profile</div>
+        <h2 id="about-h" class="sec-h">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          About
+        </h2>
+        <div class="about-grid reveal">
+          <div class="about-text">
+            <p><strong>Rituraj Sharma</strong> is a backend engineer with <strong>4+ years of experience</strong>
+              designing, building, and scaling backend systems and RESTful microservices using <strong>Node.js and
+                NestJS</strong>. Skilled in <strong>AWS cloud infrastructure</strong>, event-driven architecture, and
+              third-party API integrations, with a track record of improving system reliability, data integrity, and
+              performance across production platforms serving <strong>tens of thousands of users</strong>.</p>
+            <p>He has operated across the full backend lifecycle — from system design and API development through to
+              microservice orchestration and cloud deployment — with a consistent focus on <strong>reliability,
+                observability, and maintainable engineering</strong>.</p>
+            <p>His portfolio spans a <strong>satellite-based IoT telemetry platform</strong> (device-to-cloud data
+              pipelines for fleet tracking) through <strong>enterprise-grade client engagements</strong>, including work
+              with KPMG. He has also <strong>mentored 15+ junior engineers</strong> and student trainees, conducted code
+              reviews, and contributed to architecture decisions across projects.</p>
+          </div>
+          <div class="stat-panel pxcard">
+            <div class="stat-panel-hd">
+              <span>sys.profile — at a glance</span>
+              <span class="dot3"><span></span><span></span><span></span></span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+                experience
+              </span>
+              <span class="sv" data-count="4" data-suffix="+ yrs">0</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+                primary_runtime
+              </span>
+              <span class="sv">Node.js</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
+                </svg>
+                framework
+              </span>
+              <span class="sv">NestJS</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="8" height="8" />
+                  <rect x="14" y="2" width="8" height="8" />
+                  <rect x="14" y="14" width="8" height="8" />
+                  <rect x="2" y="14" width="8" height="8" />
+                </svg>
+                architecture
+              </span>
+              <span class="sv">Microservices</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                </svg>
+                cloud
+              </span>
+              <span class="sv">AWS</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+                users_served
+              </span>
+              <span class="sv" data-count="45000" data-suffix="+">0</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="8.5" cy="7" r="4" />
+                  <line x1="20" y1="8" x2="20" y2="14" />
+                  <line x1="23" y1="11" x2="17" y2="11" />
+                </svg>
+                engineers_mentored
+              </span>
+              <span class="sv" data-count="15" data-suffix="+">0</span>
+            </div>
+            <div class="srow">
+              <span class="sk">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                location
+              </span>
+              <span class="sv">Bikaner, IN</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════ EXPERIENCE ═══════════ -->
+      <section id="experience" class="sec sec-alt" aria-labelledby="exp-h">
+        <div class="sec-tag">Work history</div>
+        <h2 id="exp-h" class="sec-h">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+          Experience
+        </h2>
+        <div class="timeline">
+
+          <div class="titem current reveal">
+            <div class="tdot" aria-hidden="true"></div>
+            <article class="ecard pxcard">
+              <div class="etop">
+                <span class="eco">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                  Aexonic Technologies
+                  <span class="live-badge"><span class="ldot"></span>live</span>
+                </span>
+                <span class="eperiod">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  Apr 2025 — Present
+                </span>
+              </div>
+              <h3 class="erole">Backend Developer</h3>
+              <p class="esub">Project: TGI Connect — satellite-based trailer asset tracking &amp; fleet management
+                platform</p>
+              <ul class="ebullets">
+                <li>Design and implement <strong>RESTful microservices</strong> and integration adapters for the TGI
+                  Integrator, standardizing API contracts and templates to streamline data exchange with dispatch
+                  software and ELD systems and reduce integration friction.</li>
+                <li>Build scalable telemetry ingestion pipelines on <strong>AWS Lambda</strong> to process satellite
+                  bursts and device telemetry (location, ESN status, sensor readings), persisting normalized events to
+                  PostgreSQL and MongoDB for reporting and BI.</li>
+                <li>Implement real-time alerting and push/email notifications for critical events such as geofence
+                  breaches, temperature excursions, and device offline states, integrated into mobile app workflows for
+                  drivers and dispatchers.</li>
+                <li>Partner with product and QA teams to deliver device assignment, swapping, and asset utilization
+                  features, maintaining high data integrity across the <strong>My Connect Manager (MCM)</strong>
+                  dashboard and mobile views.</li>
+              </ul>
+              <div class="etags">
+                <span class="chip">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 1.837a1.83 1.83 0 0 0-.913.245L2.83 6.882a1.83 1.83 0 0 0-.916 1.587v9.599c0 .66.353 1.272.916 1.587l8.257 4.801c.28.163.6.244.913.244s.634-.081.914-.244l8.257-4.801c.563-.315.916-.927.916-1.587V8.469c0-.66-.353-1.272-.916-1.587L12.914 2.08A1.83 1.83 0 0 0 12 1.837z" />
+                  </svg>
+                  Node.js
+                </span>
+                <span class="chip">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M18.75 12.58c-1.7.08-3.32.48-4.8 1.18a.63.63 0 0 0-.35.57v.14c0 .32.22.6.53.68 1.48-.48 3.03-.74 4.62-.77h.03c.87.03 1.63.42 2.07 1.07a2.53 2.53 0 0 1 .38 1.58c-.06.84-.45 1.6-1.1 2.14-.65.54-1.52.84-2.45.84-1.28 0-2.43-.54-3.15-1.48-.25-.33-.71-.41-1.05-.18a.74.74 0 0 0-.19 1.02c1.03 1.37 2.66 2.16 4.39 2.16 1.34 0 2.62-.44 3.58-1.23a4.02 4.02 0 0 0 1.52-3.13 4.03 4.03 0 0 0-.6-2.48 3.96 3.96 0 0 0-3.43-1.91z" />
+                  </svg>
+                  AWS Lambda
+                </span>
+                <span class="chip">ECS</span>
+                <span class="chip">SQS / SNS</span>
+                <span class="chip">Snowflake</span>
+                <span class="chip">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M17.193 9.555c-1.364-4.444-4.808-7.794-5.074-8.056a.44.44 0 0 0-.623 0c-.266.262-3.71 3.612-5.074 8.056-1.527 4.978-.17 9.873.12 10.8.06.2.22.34.42.34h9.676c.2 0 .36-.14.42-.34.29-.927 1.647-5.822.12-10.8z" />
+                  </svg>
+                  MongoDB
+                </span>
+                <span class="chip">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M22.062 10.96c-.469-.375-1.875-.75-4.219-1.031L20 6.678c.375-.281.563-.75.375-1.219-.188-.469-.656-.75-1.125-.75l-4.125.75L17.5 2.147c.188-.469 0-.938-.375-1.219-.469-.281-1.031-.188-1.312.188l-3.375 4.5-3.375-4.5c-.281-.375-.844-.469-1.312-.188-.375.281-.563.75-.375 1.219l2.375 3.328-4.125-.75c-.469 0-.938.281-1.125.75-.188.469 0 .938.375 1.219l2.156 3.25c-2.344.281-3.75.656-4.219 1.031C.781 11.241 0 11.897 0 12.741c0 .844.781 1.5 2.188 1.781.469.375 1.875.75 4.219 1.031L4.25 18.803c-.375.281-.563.75-.375 1.219.188.469.656.75 1.125.75l4.125-.75-2.375 3.328c-.188.469 0 .938.375 1.219.469.281 1.031.188 1.312-.188l3.375-4.5 3.375 4.5c.281.375.844.469 1.312.188.375-.281.563-.75.375-1.219l-2.375-3.328 4.125.75c.469 0 .938-.281 1.125-.75.188-.469 0-.938-.375-1.219l-2.156-3.25c2.344-.281 3.75-.656 4.219-1.031 1.406-.281 2.188-.938 2.188-1.781 0-.844-.781-1.5-2.188-1.781z" />
+                  </svg>
+                  Redis
+                </span>
+                <span class="chip">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.186v1.887c0 .102.083.185.185.185zm-2.954-5.43h2.118a.185.185 0 00.186-.186V3.574a.185.185 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185z" />
+                  </svg>
+                  Docker
+                </span>
+                <span class="chip">Jenkins</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="titem reveal d1">
+            <div class="tdot" aria-hidden="true"></div>
+            <article class="ecard pxcard">
+              <div class="etop">
+                <span class="eco">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                  </svg>
+                  Iwebwiser Pvt. Ltd.
+                </span>
+                <span class="eperiod">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  Sep 2021 — Apr 2025
+                </span>
+              </div>
+              <h3 class="erole">Backend Developer</h3>
+              <p class="esub">Led backend development across multiple client projects using Node.js, microservices, and
+                hybrid database strategies</p>
+              <ul class="ebullets">
+                <li>Mentored 15+ junior engineers and student trainees, conducted code reviews, and contributed to
+                  architecture decisions across projects.</li>
+              </ul>
+              <div class="subproj">
+                <div class="subproj-row">
+                  <div class="subproj-name">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    KPMG — Asset Assurance Tool
+                  </div>
+                  <p class="subproj-desc">Developed backend services and a mobile QR-scanning component to manage
+                    large-scale asset data and reporting.</p>
+                </div>
+                <div class="subproj-row">
+                  <div class="subproj-name">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    Zidni Academy
+                  </div>
+                  <p class="subproj-desc">Designed backend microservices for an online education platform serving
+                    approximately 45,000 users, integrating real-time video and payment flows.</p>
+                </div>
+                <div class="subproj-row">
+                  <div class="subproj-name">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    Jubal Talents
+                  </div>
+                  <p class="subproj-desc">Built scalable APIs for a global job-matching platform, implementing search
+                    and filtering with MongoDB and Redis caching to improve response performance.</p>
+                </div>
+                <div class="subproj-row">
+                  <div class="subproj-name">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    Floor &amp; Furnishing
+                  </div>
+                  <p class="subproj-desc">Developed backend APIs for product inventory, dealer management, and customer
+                    order tracking, enabling real-time synchronization between POS and ERP systems.</p>
+                </div>
+              </div>
+              <div class="etags" style="margin-top:16px;">
+                <span class="chip">Node.js</span>
+                <span class="chip">NestJS</span>
+                <span class="chip">Microservices</span>
+                <span class="chip">MongoDB</span>
+                <span class="chip">Redis</span>
+                <span class="chip">REST APIs</span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════ SKILLS ═══════════ -->
+      <section id="skills" class="sec" aria-labelledby="sk-h">
+        <div class="sec-tag">Stack</div>
+        <h2 id="sk-h" class="sec-h">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg>
+          Skills &amp; Technologies
+        </h2>
+        <div class="sk-grid">
+
+          <div class="sk-panel pxcard reveal">
+            <div class="sk-head">
+              <span class="sk-ttl">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg>
+                Languages &amp; Runtimes
+              </span>
+            </div>
+            <div class="sk-body">
+              <span class="sk-tag">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M3 3h18v18H3V3zm15.42 13.9a3.83 3.83 0 0 0-1.85-.45c-.8 0-1.2.35-1.2.82 0 .5.5.75 1.5 1.05 1.7.5 2.8.95 2.8 2.5 0 1.6-1.3 2.7-3.4 2.7-1.4 0-2.6-.4-3.4-1.1l1-1.6c.7.6 1.6.9 2.4.9.8 0 1.2-.3 1.2-.8 0-.5-.4-.7-1.5-1-1.7-.5-2.7-1-2.7-2.5 0-1.5 1.2-2.5 3.1-2.5 1.2 0 2.2.3 2.9.8l-1 1.6z" />
+                </svg>
+                JavaScript
+              </span>
+              <span class="sk-tag">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 1.837a1.83 1.83 0 0 0-.913.245L2.83 6.882a1.83 1.83 0 0 0-.916 1.587v9.599c0 .66.353 1.272.916 1.587l8.257 4.801c.28.163.6.244.913.244s.634-.081.914-.244l8.257-4.801c.563-.315.916-.927.916-1.587V8.469c0-.66-.353-1.272-.916-1.587L12.914 2.08A1.83 1.83 0 0 0 12 1.837z" />
+                </svg>
+                Node.js
+              </span>
+            </div>
+          </div>
+
+          <div class="sk-panel pxcard reveal d1">
+            <div class="sk-head">
+              <span class="sk-ttl">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                  <polyline points="2 17 12 22 22 17" />
+                  <polyline points="2 12 12 17 22 12" />
+                </svg>
+                Frameworks
+              </span>
+            </div>
+            <div class="sk-body">
+              <span class="sk-tag">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M11.986 0c.264 0 .524.088.736.255l4.316 3.42 2.658-.75a.96.96 0 0 1 1.187.653l.85 3.013 3.076.604a.962.962 0 0 1 .74 1.135l-.768 3.036 1.996 2.378a.96.96 0 0 1-.167 1.346l-2.73 2.12-.178 3.136a.961.961 0 0 1-.9.905l-3.134.184-2.115 2.73a.96.96 0 0 1-1.347.172l-2.383-1.992-3.033.774a.96.96 0 0 1-1.137-.736l-.608-3.078-3.01-.845a.96.96 0 0 1-.655-1.19l.745-2.654-3.42-4.318A.96.96 0 0 1 .536 8.52L3.652 6.4 3.47 3.268A.962.962 0 0 1 4.372 2.36l3.135-.178 2.12-2.73A.96.96 0 0 1 10.974.004l1.012-.004z" />
+                </svg>
+                NestJS
+              </span>
+              <span class="sk-tag">Express.js</span>
+              <span class="sk-tag">Koa</span>
+              <span class="sk-tag">Fastify</span>
+            </div>
+          </div>
+
+          <div class="sk-panel pxcard reveal d2">
+            <div class="sk-head">
+              <span class="sk-ttl">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+                Databases
+              </span>
+            </div>
+            <div class="sk-body">
+              <span class="sk-tag">PostgreSQL</span>
+              <span class="sk-tag">MySQL</span>
+              <span class="sk-tag">SQL Server</span>
+              <span class="sk-tag">MongoDB</span>
+              <span class="sk-tag">DynamoDB</span>
+              <span class="sk-tag">Snowflake</span>
+            </div>
+          </div>
+
+          <div class="sk-panel pxcard reveal">
+            <div class="sk-head">
+              <span class="sk-ttl">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                </svg>
+                Cloud &amp; DevOps
+              </span>
+            </div>
+            <div class="sk-body">
+              <span class="sk-tag">AWS EC2</span>
+              <span class="sk-tag">ECS / ECR</span>
+              <span class="sk-tag">S3</span>
+              <span class="sk-tag">RDS</span>
+              <span class="sk-tag">SQS / SES</span>
+              <span class="sk-tag">API Gateway</span>
+              <span class="sk-tag">Route53</span>
+              <span class="sk-tag">VPC</span>
+              <span class="sk-tag">Docker</span>
+              <span class="sk-tag">Jenkins CI/CD</span>
+            </div>
+          </div>
+
+          <div class="sk-panel pxcard reveal d1">
+            <div class="sk-head">
+              <span class="sk-ttl">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="8" height="8" />
+                  <rect x="14" y="2" width="8" height="8" />
+                  <rect x="14" y="14" width="8" height="8" />
+                  <rect x="2" y="14" width="8" height="8" />
+                </svg>
+                Architecture &amp; Patterns
+              </span>
+            </div>
+            <div class="sk-body">
+              <span class="sk-tag">Microservices</span>
+              <span class="sk-tag">Event-Driven</span>
+              <span class="sk-tag">RESTful API Design</span>
+              <span class="sk-tag">WebSockets</span>
+              <span class="sk-tag">RabbitMQ</span>
+              <span class="sk-tag">Redis Caching</span>
+            </div>
+          </div>
+
+          <div class="sk-panel pxcard reveal d2">
+            <div class="sk-head">
+              <span class="sk-ttl">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+                Tools &amp; Practices
+              </span>
+            </div>
+            <div class="sk-body">
+              <span class="sk-tag">Git</span>
+              <span class="sk-tag">GitHub</span>
+              <span class="sk-tag">Bitbucket</span>
+              <span class="sk-tag">JIRA</span>
+              <span class="sk-tag">Linux</span>
+              <span class="sk-tag">Code Review</span>
+              <span class="sk-tag">HTML5/CSS3</span>
+              <span class="sk-tag">Nginx</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════ EDUCATION & RECOGNITION ═══════════ -->
+      <section id="education" class="sec sec-alt" aria-labelledby="edu-h">
+        <div class="sec-tag">Credentials</div>
+        <h2 id="edu-h" class="sec-h">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+          </svg>
+          Education &amp; Recognition
+        </h2>
+        <div class="edu-grid">
+          <div class="edu-card pxcard reveal">
+            <div class="edu-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              </svg>
+              Postgraduate
+            </div>
+            <h3 class="edu-deg">Master of Computer Applications (MCA)</h3>
+            <p class="edu-inst">Singhania University, Jaipur</p>
+          </div>
+
+          <div class="edu-card pxcard reveal d1">
+            <div class="edu-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              </svg>
+              Undergraduate
+            </div>
+            <h3 class="edu-deg">B.Sc. Computer &amp; Information Sciences</h3>
+            <p class="edu-inst">Jaipur National University, Jaipur</p>
+            <p class="edu-yr">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+              </svg>
+              August 2021
+            </p>
+          </div>
+
+          <div class="edu-card pxcard reveal d2">
+            <div class="edu-badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              </svg>
+              Senior Secondary
+            </div>
+            <h3 class="edu-deg">12th (PCM)</h3>
+            <p class="edu-inst">Shastri Sr. Sec. School, Bikaner</p>
+            <p class="edu-yr">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+              </svg>
+              July 2016
+            </p>
+          </div>
+
+          <div class="award-card pxcard magenta reveal d3">
+            <div class="award-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              Recognition
+            </div>
+            <h3 class="award-name">Pinnacle Performer of the Year</h3>
+            <p class="award-yr">2023</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <!-- ═══════════ CONTACT ═══════════ -->
+      <section id="contact" class="sec" aria-labelledby="ct-h">
+        <div class="sec-tag">Reach out</div>
+        <h2 id="ct-h" class="sec-h">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          Contact
+        </h2>
+        <div class="ct-grid">
+
+          <a href="mailto:rituraj152150@gmail.com" class="ct-card pxcard reveal" aria-label="Email Rituraj">
+            <div class="ct-lbl">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              Email
+            </div>
+            <div class="ct-val">rituraj152150@gmail.com</div>
+          </a>
+
+          <a href="tel:+917976142577" class="ct-card pxcard reveal d1" aria-label="Call Rituraj">
+            <div class="ct-lbl">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              Phone
+            </div>
+            <div class="ct-val">+91 79761 42577</div>
+          </a>
+
+          <a href="https://github.com/raj0991" class="ct-card pxcard reveal d2" target="_blank"
+            rel="noopener noreferrer" aria-label="GitHub profile">
+            <div class="ct-lbl">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.51 11.51 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg>
+              GitHub
+            </div>
+            <div class="ct-val">github.com/raj0991</div>
+          </a>
+
+          <a href="https://linkedin.com/in/rituraj-sharma" class="ct-card pxcard reveal d3" target="_blank"
+            rel="noopener noreferrer" aria-label="LinkedIn profile">
+            <div class="ct-lbl">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+              LinkedIn
+            </div>
+            <div class="ct-val">linkedin.com/in/rituraj-sharma</div>
+          </a>
+
+          <div class="ct-card pxcard reveal">
+            <div class="ct-lbl">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Location
+            </div>
+            <div class="ct-val muted">Bikaner, Rajasthan, India 334004</div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>Rituraj Sharma &mdash; Backend Engineer &mdash; Bikaner, India</p>
+      <p class="fstat"><span class="sdot" aria-hidden="true"></span> process.exit(0) never called — session still
+        running</p>
+    </footer>
+
+    <script>
+      "use strict";
+      const rmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Dynamic Starfield */
+      (function () {
+        const field = document.getElementById('stars');
+        if (!field) return;
+        const n = 70;
+        for (let i = 0; i < n; i++) {
+          const s = document.createElement('div');
+          s.className = 'star';
+          const size = Math.random() * 2.2 + 1;
+          s.style.width = size + 'px';
+          s.style.height = size + 'px';
+          s.style.left = Math.random() * 100 + '%';
+          s.style.top = Math.random() * 65 + '%';
+          s.style.animationDelay = (Math.random() * 3.4).toFixed(2) + 's';
+          s.style.animationDuration = (2.5 + Math.random() * 2.5).toFixed(2) + 's';
+          field.appendChild(s);
+        }
+      })();
+
+      /* Code window line reveal */
+      (function () {
+        const lines = document.querySelectorAll('#code-lines .cline');
+        if (rmo) { lines.forEach(l => l.style.opacity = 1); return; }
+        lines.forEach((l, i) => {
+          setTimeout(() => { l.style.transition = 'opacity 0.35s ease'; l.style.opacity = 1; }, 500 + i * 260);
+        });
+      })();
+
+      /* Stat panel connection counter & uptime flicker */
+      (function () {
+        const connEl = document.getElementById('stat-conn');
+        const upEl = document.getElementById('stat-uptime');
+        if (!connEl) return;
+        if (rmo) { connEl.textContent = '45,000+ Active'; return; }
+        const target = 45000;
+        const dur = 1800;
+        const t0 = performance.now();
+        function step(now) {
+          const p = Math.min((now - t0) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          connEl.textContent = Math.floor(eased * target).toLocaleString() + (p >= 1 ? '+ Active' : '');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        setInterval(() => {
+          const v = (99.8 + Math.random() * 0.19).toFixed(1);
+          if (upEl) upEl.textContent = v + '%';
+        }, 2600);
+      })();
+
+      /* Intersection observer count-up for statistics */
+      (function () {
+        const nodes = document.querySelectorAll('.sv[data-count]');
+        if (!nodes.length) return;
+        function animateCount(node) {
+          const target = parseInt(node.getAttribute('data-count'), 10);
+          const suffix = node.getAttribute('data-suffix') || '';
+          if (rmo) { node.textContent = target.toLocaleString() + suffix; return; }
+          const dur = 1200; const t0 = performance.now();
+          function step(now) {
+            const p = Math.min((now - t0) / dur, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            node.textContent = Math.floor(eased * target).toLocaleString() + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); obs.unobserve(e.target); } });
+        }, { threshold: 0.4 });
+        nodes.forEach(n => obs.observe(n));
+      })();
+
+      /* Scroll reveal elements */
+      if (!rmo) {
+        const io = new IntersectionObserver((entries) => entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); }
+        }), { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('vis'));
+      }
+
+      /* Active navigation link highlight */
+      (function () {
+        const links = document.querySelectorAll('.nav-links a');
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+        const navObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              links.forEach(l => l.classList.remove('active'));
+              const t = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+              if (t) t.classList.add('active');
+            }
+          });
+        }, { threshold: 0.35 });
+        sections.forEach(s => navObs.observe(s));
+      })();
+    </script>
+  </div><!-- /portfolio-window -->
+</body>
+
+</html>
